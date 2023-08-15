@@ -1,0 +1,137 @@
+\documentclass{article}
+\usepackage{log_2022}           
+
+\usepackage{booktabs}            % professional-quality tables
+\usepackage{multirow}            % tabular cells spanning multiple rows
+\usepackage{amsfonts}            % blackboard math symbols
+\usepackage{graphicx}            % figures
+\usepackage{duckuments}          % sample images
+
+% If you want to use natbib:
+\usepackage[numbers,compress,sort]{natbib}
+%                                % for numerical citations
+% \usepackage[sort,round]{natbib}
+%                                % for textual citations
+
+% If you want to use bibLaTeX, uncomment statements below:
+% \usepackage[
+%      backend=biber,
+%      style=numeric-comp,
+%      backref=true,
+%      natbib=true]{biblatex}
+% \addbibresource{reference.bib}
+
+\title[Notes on flow analysis of heavy ion collision]{Notes on flow analysis of heavy ion collision}
+
+\author[Qi Liu]{{Qi Liu}\\
+\institute{Peking University, Beijing}\\
+\email{2101110100@stu.pku.edu.cn}
+}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Notes of how to exactly deduce flow observables.
+\end{abstract}
+
+\section{v_n\{k\}}
+\quad In non-central collisions, the initial anisotropy of geometry can be convert into anisotropy in the momentum space of the final particle. The final one particle distribution can be decomposed with Fourier series, which is 
+\begin{equation}
+	\frac{EdN}{dp^{3}} \propto {1+\sum v_{n} \cos (n(\phi-\psi_{n}))}
+\end{equation}
+where $v_{n}$ are expansion coefficients, $\phi$ are particle angle and $\psi_{n}$ are n-order reference plane angle. 
+
+\quad It's easy to deduce $v_n$, use orthogonality of trigonometric functions, we have
+\begin{equation}
+	\int_{-\pi}^{\pi} \cos{mx}\cos{nx}dx = \delta_{m,n}\pi
+\end{equation}
+
+\quad The probability that one final particle in $\phi_{i}$  bin $\propto {1+\sum v_{n} \cos (n(\phi_i-\psi_{n}))}$ .If we have $m$ final particles in an event and the $j$-th particle has its angle $\phi_{j}$, In $n-th$ Fourier order sum over all these partcles, we have
+\begin{equation}
+    \sum_{j=1}^{m} \cos(n(\phi_{j}-\psi_{n}))(1+\sum v_{n} \cos (n(\phi_{j}-\psi_{n}))) = \int_{-\pi}^{\pi} \cos(n(\phi-\psi_n))(1+\sum v_{n} \cos (n(\phi-\psi_{n})))
+\end{equation}
+
+\quad In Eq.(3) we ignore the size of $\phi$ bin which can be absorbed and assume that particles number is enough to change summation to integration. Use orthogonality in Eq.(4) and absorb $\pi$ factor and divided by the number of particles to eliminate these factor's effect($N = \int \frac{EdN}{dp^{3}}dp^{3}$ and hence we can eliminate the proportional coefficient),we can get $v_n = <\cos(n(\phi-\psi_n))>$ and here $<O>$ means particles average. And later we may use this notation to express event average. We can also define $V_n = v_n \exp(i\psi_n)$ and you can easily show that $V_n = <\cos n\phi>$.
+
+\quad It is often difficult to determine the position of the reaction plane in practices. So we usually use mult-particle correlation function to calculate $v_n$, which is $v_n\{k\}$ where $k$ denote k-particle correlation.
+
+\quad We define $<2> = <\cos(n(\phi_1 - \phi_2))>$ where $\phi_1$ and $\phi_2$ are different particles(thus 2 particle correlation). It can also be written into  $<e^{in(\phi_1-\phi_2)}>$ and more clearly
+\begin{equation}
+    <2>= <e^{in(\phi_1-\phi_2)}> = \frac{\sum_{i,j,i\neq j}^{n} e^{in(\phi_i-\phi_j)}}{\sum_{i,j,i\neq j}^{n} 1} = \frac{\sum_{i,j,i\neq j}^{n} e^{in(\phi_i-\phi_j)}}{n(n-1)}
+\end{equation}
+The $\sin n(\phi_i-\phi_j)$ terms are eliminated in summation because it is an odd function and summation is performed on all particles. The condition that $i\neq j$ is aimed to Remove auto-selfcorrelation effects, which is important to do in heavy ion collision because we wants to research collective behavior rather than some specific particle.
+
+\quad Here$<>$ means take average by using multiparticle joint distribution function, we can simply assume that $f(\phi_1,\phi_2,...,\phi_n)=f(\phi_1)f(\phi_2)...f(\phi_n)$, i.e., independent identically distributed.
+
+\quad To generalized to $K$ particles, let's first introduce some useful notion. First, we define 
+\begin{equation}
+    <m>_{n_1,n_2,...n_m} = <e^{i(n_i_{1}\phi_i_{1}+n_i_{2}\phi_i_{2}+...+n_i_{m}\phi_i_{m})}> = \frac{ \sum_{i_{1},i_{2}...i_{m} = 1, i_1\neq i_2\neq ...\neq i_m}^{n}w_{i_1}w_{i_2}...w_{i_m}e^{i(n_{i_1}\phi_{i_1}+n_{i_2}\phi_{i_2}+...+n_{i_m}\phi_{i_m})}}{\sum_{i_1,i_2...i_m = 1, i_1\neq i_2\neq ...\neq i_m}^{n}w_{i_1}w_{i_2}...w_{i_m}}
+\end{equation}
+Here $m$ mean m different particle used to do this correlation(here m in a number and in $<O>$ $O$ is observable), $n_p$ means the Fourier order of $p-th$ particle and $w_p$ is the weight of $p-th$ particle(usually we use 1 like Eq.(4) does).
+
+\quad I'll show you an example. Imagine that we have total 10 particles and we want to calculate $<3>_{5,7,-9}$, using former equation, we have $<3>_{5,7,-9} = \frac{\sum_{i,j,k=1,i\nq j \nq k}^{10} e^{i(5 \phi_{i}+7 \phi_{j} - 9 \phi_{k})}}{3*2*1}$.
+
+\quad On the other hand, we can connect $<m>_{n_1,n_2,...,n_m}$ to $V_n$. Using that $f(\phi_1,\phi_2,...,\phi_n)=f(\phi_1)f(\phi_2)...f(\phi_n)$, we have
+$<m>_{n_1,n_2,...,n_m} = <e^{i(n_1 \phi_1+n_2 \phi_2 + ... n_m \phi_m)}>$ and 
+\begin{equation}
+    <e^{i(n_1 \phi_1+n_2 \phi_2 + ... n_m \phi_m)}> = \frac{e^{i(n_1 \phi_1+n_2 \phi_2 + ... n_m \phi_m)}f(\phi_1,\phi_2,...,\phi_m)d\phi_1 d\phi_2... d\phi_m }{f(\phi_1,\phi_2,...,\phi_m)d\phi_1 d\phi_2... d\phi_m} 
+\end{equation}
+at same time,
+\begin{equation}
+    \frac{e^{i(n_1 \phi_1+n_2 \phi_2 + ... n_m \phi_m)}f(\phi_1,\phi_2,...,\phi_m)d\phi_1 d\phi_2... d\phi_m }{f(\phi_1,\phi_2,...,\phi_m)d\phi_1 d\phi_2... d\phi_m} = \frac{e^{in_1 \phi_1}f(\phi_1)d\phi_1 ...e^{in_m \phi_m}f(\phi_m)d\phi_m}{f(\phi_1,\phi_2,...,\phi_m)d\phi_1 d\phi_2... d\phi_m}
+\end{equation}
+and 
+\begin{equation}
+    e^{in\phi} f(\phi) d\phi \propto e^{in\phi} (1+\sum_n v_n \cos n(\phi-\psi_n)) d\phi = v_n e^{in\psi_n} = V_n
+\end{equation}
+So we have 
+\begin{equation}
+<m>_{n_1,n_2,...n_m} = V_{n_1}V_{n_2}...V_{n_m} = v_{n_1}v_{n_2}...v_{n_m}e^{i(n_1\psi_{n_{1}}+n_2\psi_{n_{2}}+...+n_m\psi_{n_{m}})}
+\end{equation}
+and we have $V_{-n_{i}}=V_{n_{i}}^{*}$ from $V_n$ definition.
+
+\quad Once we have multiparticle correlation, we can further compute $v_n\{k\}$, it is event average of multiparticle correlation. We define
+\begin{equation}
+c_n\{2\} = <<2>_{n,-n}>
+\end{equation}
+
+\begin{equation}
+c_n\{4\} = <<4>_{n,-n}>-2*<<2>_{n,-n}>^{2}
+\end{equation}
+
+\begin{equation}
+v_n\{2\} = \sqrt{c_n\{2\}}
+\end{equation}
+
+\begin{equation}
+v_n\{4\} = \sqrt[4]{-c_n\{4 \}}
+\end{equation}
+
+\quad There are two $<>$ in Eq.(10) and Eq.(11). The inner one means particle average like Eq.(4) does, it just taking average of choosen particles in one event, the outside one is event average which means take average of all events once we get $<m>_{n_1,n_2,...,n_m}$ of each event. 
+
+\quad To calculate $<m>_{n_1,n_2,...,n_m}$ we usually use Q-cumulants method which define
+\begin{equation}
+q_n = \sum_{i=1}^{k} e^{in\phi_k}
+\end{equation}
+Then $<m>_{n_1,n_2,...,n_m}$ is just some of their product subtract the self-associated value. For example, $<2>_{n,-n}$
+\begin{equation}
+<2>_{n,-n} = \frac{q_n^{*}q_n-M}{M(M-1)}
+\end{equation}
+where $M$ is the particle number we used to calculate $<2>_{n,-n}$, and  $q_n^{*}q_n = \sum_{i,j=1}^{n} e^{in(\phi_i-\phi_j)}$, $M = \sum_{i,j=1,i=j}^{n} e^{in(\phi_i-\phi_j)}$, you can thus check Eq.(15) equals to Eq.(4). One of the advantage to use Q-cumulants method is that you don't need to do loop calculation.
+
+More knowledge on how to calculate flow by Q-cumulants, taking reference of \cite{bilandzic2011flow}\cite{bilandzic2012anisotropic} and python package\cite{Duckhic}\cite{myhic}.
+
+% For natbib users:
+\bibliographystyle{unsrtnat}
+\bibliography{reference}
+% For bibLaTeX users:
+% \printbibliography
+
+\appendix
+\section{Appendix}
+
+
+\end{document}
