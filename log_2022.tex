@@ -122,7 +122,60 @@ Then $<m>_{n_1,n_2,...,n_m}$ is just some of their product subtract the self-ass
 \end{equation}
 where $M$ is the particle number we used to calculate $<2>_{n,-n}$, and  $q_n^{*}q_n = \sum_{i,j=1}^{n} e^{in(\phi_i-\phi_j)}$, $M = \sum_{i,j=1,i=j}^{n} e^{in(\phi_i-\phi_j)}$, you can thus check Eq.(15) equals to Eq.(4). One of the advantage to use Q-cumulants method is that you don't need to do loop calculation.
 
-More knowledge on how to calculate flow by Q-cumulants, taking reference of \cite{bilandzic2011flow}\cite{bilandzic2012anisotropic} and python package\cite{Duckhic}\cite{myhic}.
+\quadMore knowledge on how to calculate flow by Q-cumulants, taking reference of \cite{bilandzic2011flow}\cite{bilandzic2012anisotropic} and python package\cite{Duckhic}\cite{myhic}.
+
+
+\section{$SC(m,n)$}
+\quad Let's first define what is cumulants and know the difference between cumulants and correlation and moments.
+
+\quad For a random variable $X$, we can define its $n-order$ moment $<X^{n}> = \int x^{n} f(x) dx$ where $x$ is the value of $X$ and $f(x)$ is the distribution function. As for correlation function, it is defined on different random variable(or a random variable defined in different point, like two point correlation function in QFT $<\phi(x)\phi(y)>$ or spin correltaion function $<S(x)S(0)>$), one of these correlation function is covariance $cov(X,Y)=<\delta{X} \delta{Y}>$.
+
+\quad Cumulants is another thing. Consider a random variable $X$ whose distribution function is $f(x)$. This function can be used to get characteristic Function $\psi(x)$. We define that $\ln{\psi(x)} = \sum_{n=1}^{\infty} \frac{(-ik)^{n}}{n!}<x^n>_c$ and $<x^n>_c$ is $n-order$ cumulants,$<X>_c$ is so-called cumulants average(You need'nt konw how it been calculated, we'll calculate cumulants in other way). We can also define cumulants in different random variables thus we can deduce relation between cumulants and correlation function\cite{Kubo1962GENERALIZEDCE}. Here we use notion in\cite{zhou}, We have 
+\begin{equation}
+Cum(\{n\}) = \sum_{l=1}^{n}(l-1)!(-1)^{l-1}\sum_{\sum_{i=1}^{l}\{m_i\}=\{n\}}\Pi_{i=1}^{l}Corr({m_i})
+\end{equation}
+here $Cum(\{n\}) = <X_1X_2...X_n>_c$ where $X_i$ is random variable. $l$ denote the portion we split these $n$ variables into and it is trivial from  1 to n. After we make sure how many portion we want to split them into, there are many ways to do that and the second summation is to sum up these ways and in each way we need to multiple their correlation, which is the final product need to do. For example $<X_1X_2X_3>_c$, when $l=1$, we have $<X_1X_2X_3>$, when $l=2$, we have $-<X_1><X_2X_3>$,$-<X_2><X_1X_3>$ and $-<X_3><X_1X_2>$, when $l=3$, we have $2<X_1><X_2><X_3>$, thus
+\begin{equation}
+$<X_1X_2X_3>_c = <X_1X_2X_3> - <X_1><X_2X_3> - <X_2><X_1X_3> - <X_3><X_1X_2> + 2<X_1><X_2><X_3>$
+\end{equation}
+
+\quad We can thus define 
+\begin{equation}
+cum(n_1,n_2,...,n_m) = <<e^{i(n_1\phi_1+n_2\phi_2+...+n_m\phi_m)}>>_c
+\end{equation}
+For 4-particles\cite{zhou}, we have 
+\begin{equation}
+cum(n_1,n_2,n_3,n_4) = <<e^{i(n_1\phi_1+n_2\phi_2+n_3\phi_3+n_4\phi_4)}>>_c
+\end{equation}
+expand it, You can get 
+\begin{equation} <<e^{i(n_1\phi_1+n_2\phi_2+n_3\phi_3+n_4\phi_4)}>>
+\end{equation}
+and 
+\begin{equation} -<<e^{i(n_1\phi_1+n_2\phi_2+n_3\phi_3)}>><<e^{in_4\phi_4}>> - (\mathrm{rotate \quad term})
+\end{equation}
+and 
+\begin{equation} -<<e^{i(n_1\phi_1+n_2\phi_2)}>><<e^{in_3\phi_3+n_4\phi_4}>> - (\mathrm{rotate \quad term})
+\end{equation}
+and 
+\begin{equation} 
+2*<<e^{in_1\phi_1)}>><<e^{in_2\phi_2}>><<e^{i(n_3\phi_3+n_4\phi_4)}>> + (\mathrm{rotate \quad term})
+\end{equation}
+and 
+\begin{equation} 
+-6*<<e^{in_1\phi_1}>><<e^{in_2\phi_2}>><<e^{in_3\phi_3}>><<e^{in_4\phi_4}>>
+\end{equation}
+the inner backet is particles average and outer means event average. We should know that if we take particle average like $<e^{in_1\phi_1}>$ we get $V_{n_1} = v_{n_1}e^{i\psi_{n_1}}$ and $\psi_{n_1}$ is the event plane of this event. However, event plane is random for each event so when we take outer average(event average), it turns to the zeros, i.e., $<<e^{in_1\phi_1}>> = 0$. So Eq.(21),Eq.(23),Eq.(24) vanish. As for $<<e^{i(n_1\phi_1+n_2\phi_2+...+n_m\phi_m)}>> = <v_{n_1}e^{i\psi_{n_1}}v_{n_2}e^{i\psi_{n_2}}...v_{n_m}e^{i\psi_{n_m}}>$ term, the only way to keep it non-zero is to make $n_1+n_2+...+n_m = 0$ which lead the production of exp function turns to 1.
+
+\quad We can define $SC(n,m)$ now
+\begin{equation} 
+SC(n,m) = cum(n,m,-n,-m) 
+\end{equation}
+the order of these do not make sense and we can get 
+\begin{equation} 
+SC(n,m) = <<e^{i(n\phi_1+m\phi_2-n\phi_3-m\phi_4)}>>-<<e^{i(n\phi_1-n\phi_3)}>><<e^{i(m\phi_2-m\phi_4)}>> = <v_n^{2}v_m^{2}>-<v_n^{2}><v_m^{2}> 
+\end{equation}
+here we denote $v_n^2 = V_n^{*}V_n = <e^{i(n\phi_1-n\phi_3)}>$, but remember to subtract self-correlation. It's easy for you to calculate term like $<e^{i(n\phi_1+m\phi_2-n\phi_3-m\phi_4)}>$ or $<e^{i(n\phi_1-n\phi_3)}>$ using Q-method as we showed before.
+
 
 % For natbib users:
 \bibliographystyle{unsrtnat}
